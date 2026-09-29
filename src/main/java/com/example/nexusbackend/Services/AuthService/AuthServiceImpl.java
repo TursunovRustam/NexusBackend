@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,7 +46,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public HttpEntity<?> login(UserReq userReq) {
-        User user = userRepo.findByPhone(userReq.getPhone()).orElseThrow();
+        User user = userRepo.findByPhone(userReq.getPhone())
+                .orElseThrow(() -> new BadCredentialsException("Invalid credentials"));
+        if (!passwordEncoder.matches(userReq.getPassword(), user.getPassword())) {
+            throw new BadCredentialsException("Invalid credentials");
+        }
         Map<String, Object> res = new HashMap<>();
         res.put("access_token", jwtService.generateToken(user));
         res.put("refresh_token", jwtService.generateRefreshToken(user));
