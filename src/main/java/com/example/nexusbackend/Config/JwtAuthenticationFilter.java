@@ -50,7 +50,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         } catch (JwtException | UsernameNotFoundException e) {
-            // invalid/expired token: leave context empty, entry point returns 401
             SecurityContextHolder.clearContext();
         }
 

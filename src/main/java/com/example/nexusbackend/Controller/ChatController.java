@@ -1,7 +1,7 @@
 package com.example.nexusbackend.Controller;
 
 
-import com.example.nexusbackend.DTO.Request.CreateChatReq;
+import com.example.nexusbackend.DTO.Request.CreateChatContactReq;
 import com.example.nexusbackend.Entity.User;
 import com.example.nexusbackend.Services.ChatService.ChatServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,6 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
 @RequestMapping("/api/v1/chat")
 public class ChatController {
     private final ChatServiceImpl chatService;
@@ -25,7 +24,7 @@ public class ChatController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createChat(@AuthenticationPrincipal User user, @RequestBody CreateChatReq chatInfo) {
+    public ResponseEntity<?> createChat(@AuthenticationPrincipal User user, @RequestBody CreateChatContactReq chatInfo) {
         return ResponseEntity.ok(chatService.createChat(user, chatInfo));
     }
 }

@@ -1,6 +1,6 @@
 package com.example.nexusbackend.Services.ChatService;
 
-import com.example.nexusbackend.DTO.Request.CreateChatReq;
+import com.example.nexusbackend.DTO.Request.CreateChatContactReq;
 import com.example.nexusbackend.Entity.Chat;
 import com.example.nexusbackend.Entity.User;
 import com.example.nexusbackend.Repositories.ChatRepository;
@@ -27,7 +27,7 @@ public class ChatServiceImpl implements ChatService{
     }
 
     @Override
-    public HttpEntity<?> createChat(User user, CreateChatReq chatInfo) {
+    public HttpEntity<?> createChat(User user, CreateChatContactReq chatInfo) {
         User companion  = userRepository.findByPhone(chatInfo.getPhone())
                 .orElseThrow(() -> new BadCredentialsException("User is not found"));
         chatRepository.save(Chat.builder()

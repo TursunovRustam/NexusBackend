@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class CreateChatReq {
+public class CreateChatContactReq {
     @NotNull
     private Long phone;
     @NotNull
