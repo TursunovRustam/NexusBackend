@@ -35,7 +35,6 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public HttpEntity<?> createContact(User user1, CreateChatContactReq req) {
-        System.out.println("hello");
         User user2 = userRepository.findByPhone(req.getPhone())
                 .orElseThrow(() ->
                         new ResponseStatusException(
